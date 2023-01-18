@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Humming-Based Music Information Search</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+  <script src="script.js"></script>
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="About.html">About</a>
+      <a href="Services.html">Services</a>
+      <a href="Contact.html">Contact Us</a>
+    </nav>
+  </header>
+  <main>
+    <h1>Humming-Based Music Information Search</h1>
+    <p>Welcome to our humming-based music information search platform. Our goal is to make searching for music information as easy and intuitive as possible, by allowing users to search for songs by humming them.</p>
+    <p>Our search platform uses advanced machine learning algorithms to analyze and match the user's humming with songs in our database. We have a vast collection of songs from various genres, and we are constantly updating and expanding our database.</p>
+    <p>Our platform not only allows users to search for songs by humming, but also provides various information about the songs such as lyrics, artist information, and album information. Users can also create playlists, save their favorite songs, and share them with friends.</p>
+    <p>We believe that our humming-based music information search platform will revolutionize the way people search for music and make it a more enjoyable and efficient experience.</p>
+    <div class="container">
+      <h1>Song Recorder</h1>
+      <div id="recorder">
+        <button id="record-button" onclick="startRecording()">Record</button>
+        <button id="stop-button" onclick="stopRecording()">Stop</button>
+      </div>
+      <div id="audio-player"></div>
+      <form id="save-form">
+        <input type="text" id="song-name" placeholder="Enter song name">
+        <button type="submit" onclick="saveRecording()">Save</button>
+      </form>
+    </div>
+  </main>
+  <footer>
+    <p>Copyright ©2023 Humming-Based Music Information Search</p>
+  </footer>
+</body>
+</html>
