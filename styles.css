@@ -35,16 +35,16 @@ body {
     text-align: center;
     }
     
-    #recorder {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
+    #record-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
     }
     
-    #record-button, #stop-button, #search-button{
-    padding: 10px;
-    font-size: 20px;
-    margin: 10px;
+    button {
+      padding: 10px 20px;
+      font-size: 18px;
+      margin: 0 10px;
     }
     
     

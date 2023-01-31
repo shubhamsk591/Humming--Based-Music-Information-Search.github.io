@@ -4,7 +4,7 @@ const searchButton = document.querySelector("#search-button");
 const resultsContainer = document.querySelector("#results");
 
 let audioContext;
-let recorder;
+let mediaRecorder;
 let audioBlob;
 let chunks = [];
 
@@ -12,36 +12,29 @@ recordButton.addEventListener("click", startRecording);
 stopButton.addEventListener("click", stopRecording);
 searchButton.addEventListener("click", searchSong);
 
-function startRecording() {
+async function startRecording() {
   recordButton.setAttribute("disabled", "disabled");
   stopButton.removeAttribute("disabled");
 
-  navigator.mediaDevices
-    .getUserMedia({ audio: true })
-    .then((stream) => {
-      audioContext = new (window.AudioContext || window.webkitAudioContext)();
-      recorder = new MediaRecorder(stream);
-      recorder.start();
+  const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+  audioContext = new (window.AudioContext || window.webkitAudioContext)();
+  mediaRecorder = new MediaRecorder(stream);
 
-      recorder.addEventListener("dataavailable", (event) => {
-        chunks.push(event.data);
-      });
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+  mediaRecorder.start();
+  mediaRecorder.addEventListener("dataavailable", (event) => {
+    chunks.push(event.data);
+  });
 }
-
 function stopRecording() {
   recordButton.removeAttribute("disabled");
   stopButton.setAttribute("disabled", "disabled");
   searchButton.removeAttribute("disabled");
 
-  recorder.stop();
-
+  mediaRecorder.stop();
   audioBlob = new Blob(chunks, { type: "audio/ogg; codecs=opus" });
   chunks = [];
 }
+
 
 async function searchSong() {
   const API_KEY = "XjoaLaiRQERN6y1J";
