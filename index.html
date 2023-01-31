@@ -5,6 +5,8 @@
   <link rel="stylesheet" type="text/css" href="styles.css">
   <script src="script.js"></script>
 </head>
+
+
 <body>
   <header>
     <nav>
@@ -22,16 +24,14 @@
     <p>We believe that our humming-based music information search platform will revolutionize the way people search for music and make it a more enjoyable and efficient experience.</p>
     <div class="container">
       <h1>Audio Recorder</h1>
+      </div>
+      <div id="results"></div>
+      <script src="script.js"></script>
       <div id="recorder">
         <button id="record-button" onclick="startRecording()">Record</button>
         <button id="stop-button" onclick="stopRecording()">Stop</button>
+        <button id="search-button" disabled>Search Song</button>
       </div>
-      <div id="audio-player"></div>
-      <form id="save-form">
-        <input type="text" id="audio-name" placeholder="Enter audio name">
-        <button type="submit" onclick="saveRecording()">Save</button>
-      </form>
-    </div>
   </main>
   <footer>
     <p>Copyright ©2023 Humming-Based Music Information Search</p>
