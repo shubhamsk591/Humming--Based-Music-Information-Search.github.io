@@ -1,4 +1,4 @@
-//const recordButton = document.querySelector("#record-button");
+const recordButton = document.querySelector("#record-button");
 const stopButton = document.querySelector("#stop-button");
 const searchButton = document.querySelector("#search-button");
 const resultsContainer = document.querySelector("#results");
@@ -12,11 +12,11 @@ recordButton.addEventListener("click", startRecording);
 stopButton.addEventListener("click", stopRecording);
 searchButton.addEventListener("click", searchSong);
 
-function startRecording() {
+async function startRecording() {
   recordButton.setAttribute("disabled", "disabled");
   stopButton.removeAttribute("disabled");
 
-  const stream = navigator.mediaDevices.getUserMedia({ audio: true });
+  const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
   audioContext = new (window.AudioContext || window.webkitAudioContext)();
   mediaRecorder = new MediaRecorder(stream);
 
@@ -25,8 +25,9 @@ function startRecording() {
     chunks.push(event.data);
   });
 }
+
 function stopRecording() {
-  //recordButton.removeAttribute("disabled");
+  recordButton.removeAttribute("disabled");
   stopButton.setAttribute("disabled", "disabled");
   searchButton.removeAttribute("disabled");
 
@@ -35,40 +36,27 @@ function stopRecording() {
   chunks = [];
 }
 
-
 async function searchSong() {
-  const API_KEY = "XjoaLaiRQERN6y1J";
+  const API_KEY = "YXjoaLaiRQERN6y1J";
   const API_SECRET = "gR7zdpAVc9wdXCeNitjYGqscgUewD4tW";
 
   const formData = new FormData();
   formData.append("audio_data", audioBlob, "audio.ogg");
   formData.append("access_key", API_KEY);
   formData.append("timestamp", Date.now());
-  formData.append("signature", createSignature(API_SECRET, formData));
+
+  const signature = btoa(API_KEY + ":" + API_SECRET);
 
   const response = await fetch("https://api.acrcloud.com/v1/identify", {
     method: "POST",
+    headers: {
+      "Content-Type": "multipart/form-data",
+      "Authorization": `ACRCloud ${signature}`,
+    },
     body: formData,
   });
-  const json = await response.json();
 
-  if (json.status.code === 0) {
-    const song = json.metadata.music[0];
-    resultsContainer.innerHTML = `
-      <h2>Song Information</h2>
-      <p>Title: ${song.title}</p>
-      <p>Artist: ${song.artists[0].name}</p>
-      <p>Album: ${song.album.name}</p>
-    `;
-  } else {
-    resultsContainer.innerHTML = "<p>No song found</p>";
-  }
-}
+  const data = await response.json();
 
-function createSignature(apiSecret, formData) {
-  const message = Array.from(formData.entries())
-    .map((entry) => entry.join("="))
-    .join("&");
-
-  return btoa(apiSecret + message);
+  // Handle response and display results in the "results" container
 }
