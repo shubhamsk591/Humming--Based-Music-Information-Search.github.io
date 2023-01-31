@@ -1,4 +1,4 @@
-const recordButton = document.querySelector("#record-button");
+//const recordButton = document.querySelector("#record-button");
 const stopButton = document.querySelector("#stop-button");
 const searchButton = document.querySelector("#search-button");
 const resultsContainer = document.querySelector("#results");
