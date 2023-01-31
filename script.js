@@ -12,11 +12,11 @@ recordButton.addEventListener("click", startRecording);
 stopButton.addEventListener("click", stopRecording);
 searchButton.addEventListener("click", searchSong);
 
-async function startRecording() {
+function startRecording() {
   recordButton.setAttribute("disabled", "disabled");
   stopButton.removeAttribute("disabled");
 
-  const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+  const stream = navigator.mediaDevices.getUserMedia({ audio: true });
   audioContext = new (window.AudioContext || window.webkitAudioContext)();
   mediaRecorder = new MediaRecorder(stream);
 
@@ -26,7 +26,7 @@ async function startRecording() {
   });
 }
 function stopRecording() {
-  recordButton.removeAttribute("disabled");
+  //recordButton.removeAttribute("disabled");
   stopButton.setAttribute("disabled", "disabled");
   searchButton.removeAttribute("disabled");
 
