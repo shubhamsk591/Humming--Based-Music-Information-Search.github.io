@@ -41,11 +41,12 @@ body {
     margin-top: 20px;
     }
     
-    #record-button, #stop-button {
+    #record-button, #stop-button,#search-button {
     padding: 10px;
     font-size: 20px;
     margin: 10px;
     }
+    
     
     #audio-player {
     margin-top: 20px;
