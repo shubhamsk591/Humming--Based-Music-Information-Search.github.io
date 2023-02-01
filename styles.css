@@ -32,34 +32,50 @@ footer {
 .container {
   width: 50%;
   margin: 0 auto;
+  text-align: center;
   }
-
+  
   #recorder {
   display: flex;
   justify-content: center;
+  margin-top: 20px;
   }
-
+  
   #record-button, #stop-button {
   padding: 10px;
   font-size: 20px;
   margin: 10px;
   }
-
+  
   #audio-player {
   margin-top: 20px;
   }
-
+  
   #save-form {
   margin-top: 20px;
   display: flex;
   justify-content: center;
   }
-
-  #song-name {
+  
+  #audio-name {
   padding: 10px;
   margin-right: 10px;
   }
-
+  
   #save-form button {
   padding: 10px;
   }
+  
+  audio{
+  width:100%;
+  }
+  
+  a{
+  margin-top:20px;
+  font-size:20px;
+  }
+  
+  
+  
+  
+  
