@@ -5,8 +5,6 @@
   <link rel="stylesheet" type="text/css" href="styles.css">
   <script src="script.js"></script>
 </head>
-
-
 <body>
   <header>
     <nav>
@@ -15,6 +13,8 @@
       <a href="Services.html">Services</a>
       <a href="Contact.html">Contact Us</a>
     </nav>
+
+    
   </header>
   <main>
     <h1>Humming-Based Music Information Search</h1>
@@ -23,16 +23,20 @@
     <p>Our platform not only allows users to search for songs by humming, but also provides various information about the songs such as lyrics, artist information, and album information. Users can also create playlists, save their favorite songs, and share them with friends.</p>
     <p>We believe that our humming-based music information search platform will revolutionize the way people search for music and make it a more enjoyable and efficient experience.</p>
     <div class="container">
-      <h1>Audio Recorder</h1>
+      <h1>Song Recorder</h1>
+      <div id="recorder">
+        <button id="record-button" onclick="startRecording()">Record</button>
+        <button id="stop-button" onclick="stopRecording()">Stop</button>
+        <button id="search-button" onclick="searchRecording()">Search</button>
       </div>
+      <div id="audio-player"></div>
+      <form id="save-form">
+        <input type="text" id="song-name" placeholder="Enter song name">
+        <button type="submit" onclick="saveRecording()">Save</button>
+      </form>
       <div id="results"></div>
-      <script src="script.js"></script>
-      <div id="record-container">
-        <button id="record-button">Start Recording</button>
-        <button id="stop-button" >Stop Recording</button>
-        <button id="search-button" disabled>Search Song</button>
-      </div>
-      <div id="results"></div>
+    </div>
+
   </main>
   <footer>
     <p>Copyright ©2023 Humming-Based Music Information Search</p>

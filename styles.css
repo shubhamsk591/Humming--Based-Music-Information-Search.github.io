@@ -41,7 +41,7 @@ body {
       margin-top: 20px;
     }
     
-    button {
+    #record-button,#stop-button,#search-button {
       padding: 10px 20px;
       font-size: 18px;
       margin: 0 10px;
