@@ -18,6 +18,12 @@ function startRecording() {
 function stopRecording() {
   audioRecorder.stop();
   audioRecorder.stream.getAudioTracks()[0].stop();
+}
+
+// Save recording function
+function saveRecording() {
+  // Get the song name from the input field
+  let songName = document.getElementById("song-name").value;
 
   // Create a new Blob from the audio chunks
   let audioBlob = new Blob(audioChunks, {type: "audio/wav"});
@@ -27,31 +33,18 @@ function stopRecording() {
 
   // Create a new audio element
   let audioElement = new Audio(audioUrl);
-  audioElement.controls = true;
+
   // Add the audio element to the page
   document.getElementById("audio-player").appendChild(audioElement);
-}
-
-// Save recording function
-function saveRecording() {
-  // Get the audio name from the input field
-  let audioName = document.getElementById("audio-name").value;
-
-  // Create a new Blob from the audio chunks
-  let audioBlob = new Blob(audioChunks, {type: "audio/wav"});
-
-  // Create a new object URL for the audio
-  let audioUrl = URL.createObjectURL(audioBlob);
 
   // Create a link to download the audio
   let downloadLink = document.createElement("a");
   downloadLink.href = audioUrl;
-  downloadLink.download =audioName+".wav";
-  downloadLink.innerHTML = "Download " + audioName;
+  downloadLink.download = songName+".wav";
+  downloadLink.innerHTML = "Download " + songName;
 
   // Add the download link to the page
   document.getElementById("audio-player").appendChild(downloadLink);
 
   //reset the audio chunks
-  audioChunks = [];
 }
