@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Humming Music Search</title>
+    <link rel="stylesheet" type="text/css" href="style1.css">
+  </head>
+  <body>
+    <header>
+      <h1>Humming Music Search</h1>
+    </header>
+
+    <section>
+      <h2>Record Humming Audio</h2>
+      <div class="recording-controls">
+        <button id="record-button">Record</button>
+        <button id="stop-button" >Stop</button>
+      </div>
+      <audio id="recorded-audio"></audio>
+      <div class="playback-controls">
+        <audio id="humming-audio" controls></audio>
+        <button id="download-button" >Download</button>
+      </div>
+    </section>
+
+    <section>
+      <h2>Choose a Song</h2>
+      <input type="file" id="song-file" accept="audio/*">
+      <audio id="song-audio" controls></audio>
+    </section>
+
+    <section>
+      <button id="submit-button">Submit</button>
+      <div id="progress-message">Working on Progress...</div>
+    </section>
+
+    <script src="script1.js"></script>
+  </body>
+</html>

@@ -1,59 +1,57 @@
-const recordButton = document.getElementById("record-button");
-const stopButton = document.getElementById("stop-button");
-const recordedAudio = document.getElementById("recorded-audio");
-const hummingAudio = document.getElementById("humming-audio");
-const downloadButton = document.getElementById("download-button");
-const songFile = document.getElementById("song-file");
-const songAudio = document.getElementById("song-audio");
-const submitButton = document.getElementById("submit-button");
-const progressMessage = document.getElementById("progress-message");
-
-let mediaRecorder;
+// Initialize variables
+let audioRecorder;
 let audioChunks = [];
-recordButton.addEventListener("click", function() {
-recordButton.setAttribute("disabled", true);
-stopButton.removeAttribute("disabled");
+// Start recording function
+function startRecording() {
+  // Set up the media recorder
+  navigator.mediaDevices.getUserMedia({audio: true})
+  .then(stream => {
+    audioRecorder = new MediaRecorder(stream);
+    audioRecorder.start();
+    audioRecorder.addEventListener("dataavailable", event => {
+      audioChunks.push(event.data);
+    });
+  });
+}
 
-navigator.mediaDevices.getUserMedia({ audio: true }).then(function(stream) {
-mediaRecorder = new MediaRecorder(stream);
-mediaRecorder.start();
+// Stop recording function
+function stopRecording() {
+  audioRecorder.stop();
+  audioRecorder.stream.getAudioTracks()[0].stop();
 
+  // Create a new Blob from the audio chunks
+  let audioBlob = new Blob(audioChunks, {type: "audio/wav"});
 
-mediaRecorder.addEventListener("dataavailable", function(event) {
-audioChunks.push(event.data);
-});
+  // Create a new object URL for the audio
+  let audioUrl = URL.createObjectURL(audioBlob);
 
-mediaRecorder.addEventListener("stop", function() {
-const audioBlob = new Blob(audioChunks, { type: "audio/wav" });
-recordedAudio.src = URL.createObjectURL(audioBlob);
-hummingAudio.src = recordedAudio.src;
-});
-});
-});
+  // Create a new audio element
+  let audioElement = new Audio(audioUrl);
+  audioElement.controls = true;
+  // Add the audio element to the page
+  document.getElementById("audio-player").appendChild(audioElement);
+}
 
-stopButton.addEventListener("click", function() {
-recordButton.removeAttribute("disabled");
-stopButton.setAttribute("disabled", true);
-mediaRecorder.stop();
-});
+// Save recording function
+function saveRecording() {
+  // Get the audio name from the input field
+  let audioName = document.getElementById("audio-name").value;
 
-downloadButton.addEventListener("click", function() {
-const blob = new Blob(audioChunks, { type: "audio/wav" });
-const url = URL.createObjectURL(blob);
-const link = document.createElement("a");
-link.style.display = "none";
-link.href = url;
-link.download = "recorded-audio.wav";
-document.body.appendChild(link);
-link.click();
-document.body.removeChild(link);
-});
+  // Create a new Blob from the audio chunks
+  let audioBlob = new Blob(audioChunks, {type: "audio/wav"});
 
-songFile.addEventListener("change", function() {
-const file = songFile.files[0];
-songAudio.src = URL.createObjectURL(file);
-});
+  // Create a new object URL for the audio
+  let audioUrl = URL.createObjectURL(audioBlob);
 
-submitButton.addEventListener("click", function() {
-progressMessage.style.display = "block";
-})
+  // Create a link to download the audio
+  let downloadLink = document.createElement("a");
+  downloadLink.href = audioUrl;
+  downloadLink.download =audioName+".wav";
+  downloadLink.innerHTML = "Download " + audioName;
+
+  // Add the download link to the page
+  document.getElementById("audio-player").appendChild(downloadLink);
+
+  //reset the audio chunks
+  audioChunks = [];
+}
