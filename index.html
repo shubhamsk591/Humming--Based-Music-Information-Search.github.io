@@ -21,16 +21,28 @@
     <p>Our platform not only allows users to search for songs by humming, but also provides various information about the songs such as lyrics, artist information, and album information. Users can also create playlists, save their favorite songs, and share them with friends.</p>
     <p>We believe that our humming-based music information search platform will revolutionize the way people search for music and make it a more enjoyable and efficient experience.</p>
     <div class="container">
-      <h1>Audio Recorder</h1>
-      <div id="recorder">
-        <button id="record-button" onclick="startRecording()">Record</button>
-        <button id="stop-button" onclick="stopRecording()">Stop</button>
+      <h2>Record Humming Audio</h2>
+      <div class="recording-controls">
+        <button id="record-button">Record</button>
+        <button id="stop-button" >Stop</button>
       </div>
-      <div id="audio-player"></div>
-      <form id="save-form">
-        <input type="text" id="audio-name" placeholder="Enter audio name">
-        <button type="submit" onclick="saveRecording()">Save</button>
-      </form>
+      <audio id="recorded-audio"></audio>
+      <div class="playback-controls">
+        <audio id="humming-audio" controls></audio>
+        <button id="download-button" >Download</button>
+      </div>
+    </section>
+
+    <section>
+      <h2>Choose a Song</h2>
+      <input type="file" id="song-file" accept="audio/*">
+      <audio id="song-audio" controls></audio>
+    </section>
+
+    <section>
+      <button id="submit-button">Submit</button>
+      <div id="progress-message">Working on Progress...</div>
+    </section>
     </div>
   </main>
   <footer>
