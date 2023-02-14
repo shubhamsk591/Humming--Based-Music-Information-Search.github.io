@@ -11,19 +11,23 @@
 
     <section>
       <h2>Record Humming Audio</h2>
+      <div id="waveform1"></div>
       <div class="recording-controls">
+        
         <button id="record-button">Record</button>
-        <button id="stop-button" >Stop</button>
+        <button id="stop-button" disabled>Stop</button>
       </div>
       <audio id="recorded-audio"></audio>
       <div class="playback-controls">
         <audio id="humming-audio" controls></audio>
-        <button id="download-button" >Download</button>
+        <button id="download-button" disabled>Download</button>
       </div>
     </section>
 
     <section>
+      <div id="waveform2"></div>
       <h2>Choose a Song</h2>
+      
       <input type="file" id="song-file" accept="audio/*">
       <audio id="song-audio" controls></audio>
     </section>
@@ -34,5 +38,7 @@
     </section>
 
     <script src="script1.js"></script>
+    <script src="recorder.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/2.2.0/wavesurfer.min.js"></script>
   </body>
 </html>

@@ -44,4 +44,8 @@ body {
     font-style: italic;
     display: none;
   }
-  
+  #waveform1,#waveform2 {
+    width: 100%;
+    height: 128px;
+    margin-top: 20px;
+  }

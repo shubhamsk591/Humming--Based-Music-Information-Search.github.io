@@ -1,3 +1,4 @@
+
 // Initialize variables
 let audioRecorder;
 let audioChunks = [];
@@ -17,7 +18,7 @@ function startRecording() {
 // Stop recording function
 function stopRecording() {
   audioRecorder.stop();
-  audioRecorder.stream.getAudioTracks()[0].stop();
+ 
 
   // Create a new Blob from the audio chunks
   let audioBlob = new Blob(audioChunks, {type: "audio/wav"});
