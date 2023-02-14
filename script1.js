@@ -9,6 +9,7 @@ const songFile = document.getElementById("song-file");
 const songAudio = document.getElementById("song-audio");
 const submitButton = document.getElementById("submit-button");
 const progressMessage = document.getElementById("progress-message");
+const cancelBtn=document.getElementById("cancel-button");
 let audioCtx;
 let recorder;
 let stream;
@@ -26,6 +27,7 @@ navigator.mediaDevices
     startRecordingBtn.addEventListener("click", startRecording);
     stopRecordingBtn.addEventListener("click", stopRecording);
     downloadRecordingBtn.addEventListener("click", downloadRecording);
+    cancelBtn.addEventListener("click",cancelbutton);
   })
   .catch((error) => {
     console.error("Error getting audio stream:", error);
@@ -35,16 +37,18 @@ navigator.mediaDevices
     // Start recording
     stopRecordingBtn.removeAttribute("disabled");
     startRecordingBtn.setAttribute("disabled", true);
-    
+    cancelBtn.setAttribute("disabled",true);
+    downloadRecordingBtn.setAttribute("disabled",true);
     recorder.record();
   }
 
 
   
 function stopRecording() {
-  startRecordingBtn.removeAttribute("disabled");
+  
   stopRecordingBtn.setAttribute("disabled", true);
-  downloadRecordingBtn.removeAttribute("disabled")
+  downloadRecordingBtn.removeAttribute("disabled");
+  cancelBtn.removeAttribute("disabled");
   recorder.stop();
   recorder.exportWAV(blob => {
     const url = URL.createObjectURL(blob);
@@ -52,7 +56,7 @@ function stopRecording() {
 
     link.href = url;
     audioControl.src=url;
-    recorder.clear();
+   
   });
 }
   audioControl.addEventListener("play", function() {
@@ -66,7 +70,7 @@ function stopRecording() {
       cursorColor: "#333",
       responsive: true
     });
-    wavesurfer1.clear();
+  
     wavesurfer1.load(audioControl.src);
   });
   
@@ -79,11 +83,20 @@ function stopRecording() {
       link.download = 'recording.wav';
       document.body.appendChild(link);
       link.click();
+      
     });
   }
 
 
+function cancelbutton(){
+  startRecordingBtn.removeAttribute("disabled");
+  stopRecordingBtn.setAttribute("disabled", true);
+  recorder.clear();
+  cancelBtn.setAttribute("disabled",true);
+  downloadRecordingBtn.setAttribute("disabled",true);
+  wavesurfer1.destroy();
 
+}
 
 
 songFile.addEventListener("change", function() {
