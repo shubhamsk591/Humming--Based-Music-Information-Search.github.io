@@ -23,7 +23,7 @@ navigator.mediaDevices
     const microphone = audioCtx.createMediaStreamSource(stream);
     // Create a new recorder
     recorder = new Recorder(microphone, {numChannels: 1});
-
+    wavesurfer();
     startRecordingBtn.addEventListener("click", startRecording);
     stopRecordingBtn.addEventListener("click", stopRecording);
     downloadRecordingBtn.addEventListener("click", downloadRecording);
@@ -32,7 +32,28 @@ navigator.mediaDevices
   .catch((error) => {
     console.error("Error getting audio stream:", error);
   });
-
+  function wavesurfer(){
+    wavesurfer1 = WaveSurfer.create({
+      container: "#waveform1",
+      waveColor: "violet",
+      progressColor: "purple",
+      height: 128,
+      barWidth: 3,
+      cursorWidth: 1,
+      cursorColor: "#333",
+      responsive: true
+    });
+    wavesurfer2 = WaveSurfer.create({
+      container: "#waveform2",
+      waveColor: "violet",
+      progressColor: "purple",
+      height: 128,
+      barWidth: 3,
+      cursorWidth: 1,
+      cursorColor: "#333",
+      responsive: true
+    });
+  }
   function startRecording() {
     // Start recording
     stopRecordingBtn.removeAttribute("disabled");
@@ -56,24 +77,21 @@ function stopRecording() {
 
     link.href = url;
     audioControl.src=url;
-   
+    wavesurfer1.load(audioControl.src);
   });
 }
   audioControl.addEventListener("play", function() {
-    wavesurfer1 = WaveSurfer.create({
-      container: "#waveform1",
-      waveColor: "violet",
-      progressColor: "purple",
-      height: 128,
-      barWidth: 3,
-      cursorWidth: 1,
-      cursorColor: "#333",
-      responsive: true
-    });
-  
-    wavesurfer1.load(audioControl.src);
+    
+    wavesurfer1.playPause();
+    
+    
   });
+  audioControl.addEventListener("pause", function() {
+   
   
+    wavesurfer1.stop();
+    
+  });
   function downloadRecording() {
     recorder.exportWAV(blob => {
       const url = URL.createObjectURL(blob);
@@ -102,26 +120,21 @@ function cancelbutton(){
 songFile.addEventListener("change", function() {
 const file = songFile.files[0];
 songAudio.src = URL.createObjectURL(file);
+wavesurfer2.load(songAudio.src);
 });
 
 
 songAudio.addEventListener("play", function() {
-    wavesurfer2 = WaveSurfer.create({
-      container: "#waveform2",
-      waveColor: "violet",
-      progressColor: "purple",
-      height: 128,
-      barWidth: 3,
-      cursorWidth: 1,
-      cursorColor: "#333",
-      responsive: true
-    });
     
-    wavesurfer2.load(songAudio.src);
+   wavesurfer2.playPause();
     
   });
 
-
+  songAudio.addEventListener("pause", function() {
+    wavesurfer2.stop();
+   
+    
+  });
 submitButton.addEventListener("click", function() {
 progressMessage.style.display = "block";
 })
